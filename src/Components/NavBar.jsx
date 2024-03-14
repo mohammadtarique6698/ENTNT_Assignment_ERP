@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { IoIosNotifications } from "react-icons/io";
@@ -17,8 +17,10 @@ import { IoMdClose } from "react-icons/io";
 import SearchBar from "./SearchBar";
 
 const NavBar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [order, setOrder] = useState([]);
   const Name = "User Name";
+  let length = 0;
 
   const handleSearch = (searchTerm) => {
     console.log("Searching for:", searchTerm);
@@ -28,11 +30,31 @@ const NavBar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const getOrders = async () => {
+    try {
+      const response = await fetch("/orders.json");
+      const data = await response.json();
+      setOrder(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getOrders();
+  }, []);
+
+  const processedAndShippedOrders = order.filter(
+    (ord) => ord.status === "Shipped" || ord.status === "Processing"
+  );
+
+  const cartItemCount = processedAndShippedOrders.length;
+
   return (
     <>
       {isSidebarOpen && (
         <div
-          className="fixed w-64 h-full bg-orange-600 overflow-x-hidden rounded-r-3xl py-28 px-5"
+          className="fixed w-64 h-full bg-orange-600 overflow-x-hidden rounded-r-3xl py-28 px-5 z-10"
           style={{
             transition: "width 5s ease-out",
           }}
@@ -62,7 +84,7 @@ const NavBar = () => {
 
             <div className="flex flex-row justify-center items-center gap-5">
               <FaJediOrder className="w-7 h-7" />
-              <Link to="/order">
+              <Link to="/orders">
                 <h3 className="font-xl font-semibold">Orders</h3>
               </Link>
             </div>
@@ -110,8 +132,13 @@ const NavBar = () => {
           <div className="flex flex-row justify-end items-center sm:gap-3 md:gap-7">
             <IoIosNotifications className="h-7 w-7" />
             <MdOutlineMessage className="h-7 w-7" />
-            <Link to="/order">
+            <Link to="/orders">
               <FaCartArrowDown className="h-7 w-7" />
+              {cartItemCount > 0 && (
+                <div className="absolute bg-green-500 rounded-full h-6 w-6 text-white text-center top-2 right-100">
+                  {cartItemCount}
+                </div>
+              )}
             </Link>
 
             <div className="flex flex-row justify-center items-center gap-5">

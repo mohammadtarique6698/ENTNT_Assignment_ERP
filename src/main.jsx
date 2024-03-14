@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./Components/Home.jsx";
 import Products from "./Section/Products.jsx";
-import SingleProduct from "./Section/SingleProuct.jsx";
+import SingleProduct from "./Section/SingleProduct.jsx";
 import Order from "./Section/Order.jsx";
 import Calender from "./Section/Calender.jsx";
 
@@ -22,15 +22,13 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <Products />,
-        children: [
-          {
-            path: ":id",
-            element: <SingleProduct />,
-          },
-        ],
       },
       {
-        path: "/order",
+        path: "/products/:id",
+        element: <SingleProduct />,
+      },
+      {
+        path: "/orders",
         element: <Order />,
       },
       {
