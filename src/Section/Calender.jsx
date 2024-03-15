@@ -6,7 +6,6 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 const localizer = momentLocalizer(moment);
 
 const OrdersCalendar = ({ orders }) => {
-  // Transform orders data into events format expected by react-big-calendar
   const events = orders.map((order) => ({
     id: order.orderId,
     title: order.customerName,
@@ -47,11 +46,11 @@ const CalendarComponent = () => {
     <div>
       <div className="grid grid-cols-12">
         <div className="col-span-2"></div>
-        <div className="col-span-9">
+        <div className="col-span-9 mb-10">
           <h1 className="text-xl font-semibold mb-5">
             Orders Calendar (Assuming each order is a single-day event ){" "}
           </h1>
-          <div className="border-none sm:border p-3 rounded-md mb-5">
+          <div className="border-none sm:border p-3 srounded-md mb-5">
             <OrdersCalendar orders={orders} />
           </div>
         </div>
