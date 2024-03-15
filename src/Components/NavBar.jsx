@@ -117,7 +117,7 @@ const NavBar = () => {
 
       <div className="w-full px-20">
         <div className="h-16 flex flex-row justify-between items-center md:gap-10">
-          <div className="flex flex-row justify-center items-center gap-2">
+          <div className="flex flex-row justify-center items-center gap-2 md:px-20">
             <GiHamburgerMenu className="h-7 w-7" onClick={toggleSidebar} />
           </div>
 
