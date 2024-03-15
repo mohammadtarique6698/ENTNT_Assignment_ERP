@@ -132,7 +132,7 @@ const Products = () => {
         </h2>
         <form
           onSubmit={isEditing ? editProduct : addProduct}
-          className="flex flex-col xl:flex-row xl:justify-center xl:items-center gap-4 max-w-lg mx-auto"
+          className="flex flex-col justify-center items-center xl:flex-row xl:justify-center xl:items-center gap-4 max-w-lg mx-auto hover:text-orange-300"
         >
           <label className="flex flex-col">
             <span className="text-xl font-semibold mb-1">Name:</span>
