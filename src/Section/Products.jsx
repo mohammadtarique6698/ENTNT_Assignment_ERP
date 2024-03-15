@@ -45,6 +45,10 @@ const Products = () => {
         body: JSON.stringify(newProductWithId),
       });
 
+      if (!response.ok) {
+        throw new Error("Failed to add product");
+      }
+
       setProducts([...products, newProductWithId]);
       console.log(products);
       setNewProduct({
@@ -63,11 +67,24 @@ const Products = () => {
 
   const editProduct = async () => {
     try {
+      const response = await fetch("products.json", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProduct),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to update product with ID ${editProductId}`);
+      }
+
       const updatedProducts = products.map((product) =>
         product.id === editProductId ? { ...product, ...newProduct } : product
       );
-      //console.log(updatedProducts);
+
       setProducts(updatedProducts);
+      console.log(updatedProducts);
       setIsEditing(false);
       setEditProductId(null);
       setNewProduct({
@@ -113,7 +130,10 @@ const Products = () => {
         <h2 className="text-3xl font-bold mb-6">
           {isEditing ? "EDIT PRODUCT" : "ADD NEW PRODUCT"}
         </h2>
-        <form className="flex flex-col xl:flex-row xl:justify-center xl:items-center gap-4 max-w-lg mx-auto">
+        <form
+          onSubmit={isEditing ? editProduct : addProduct}
+          className="flex flex-col xl:flex-row xl:justify-center xl:items-center gap-4 max-w-lg mx-auto"
+        >
           <label className="flex flex-col">
             <span className="text-xl font-semibold mb-1">Name:</span>
             <input
@@ -187,9 +207,12 @@ const Products = () => {
 
       <div className="mx-auto container p-6 mb-10">
         <h1 className="text-3xl font-bold mb-4">ALL PRODUCTS</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 border rounded-md px-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7 border rounded-md p-5">
           {products.map((product) => (
-            <div key={product.id}>
+            <div
+              key={product.id}
+              className="transform hover:scale-110 transition-all duration-300"
+            >
               <div className="flex flex-col bg-white p-4 rounded-md shadow-md">
                 <Link to={`/products/${product.id}`}>
                   <img
@@ -199,23 +222,25 @@ const Products = () => {
                   />
                 </Link>
                 <h1 className="text-xl font-bold mb-2">{product.name}</h1>
-                <p className="text-gray-600">{product.description}</p>
+                {/* <p className="text-gray-600">{product.description}</p> */}
                 <div className="mt-4 flex flex-row justify-between items-center">
                   <span className="text-blue-500 font-bold">
                     ${product.price}
                   </span>
-                  <button
-                    className="ml-2 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700"
-                    onClick={() => handleEditClick(product.id)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="ml-2 bg-red-500 text-white p-2 rounded-md hover:bg-red-700"
-                    onClick={() => deleteProduct(product.id)}
-                  >
-                    Delete
-                  </button>
+                  <div>
+                    <button
+                      className="ml-2 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700"
+                      onClick={() => handleEditClick(product.id)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="ml-2 bg-red-500 text-white p-2 rounded-md hover:bg-red-700"
+                      onClick={() => deleteProduct(product.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

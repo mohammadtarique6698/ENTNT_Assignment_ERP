@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 const SingleProduct = () => {
   const { id } = useParams();
-  console.log(id);
+  //console.log(id);
   const [singleProd, setSingleProd] = useState({});
 
   const getForSingleProducts = async () => {
@@ -27,7 +27,7 @@ const SingleProduct = () => {
   }, [id]);
 
   return (
-    <div className="w-full mx-auto container xl:px-16 px-4">
+    <div className="w-full mx-auto container xl:px-16 px-4 mb-10">
       <div className="p-3 max-w-20xl m-auto">
         <div className="mt-6 sm:mt-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
@@ -61,11 +61,11 @@ const SingleProduct = () => {
                   </h2>
                 </div>
               </div>
-
+              <br />
+              <br />
               <p className="font-semibold text-gray-500 text-base leading-6">
                 {/* Your product description here */}
-                This is a sample description.
-                <br />
+                <span className="text-2xl">Description:</span>
                 <br />
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.

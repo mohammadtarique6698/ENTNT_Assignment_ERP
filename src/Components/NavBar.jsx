@@ -14,17 +14,10 @@ import { IoIosHelpCircle } from "react-icons/io";
 import { IoDocumentTextSharp } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
 
-import SearchBar from "./SearchBar";
-
 const NavBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [order, setOrder] = useState([]);
   const Name = "User Name";
-  let length = 0;
-
-  const handleSearch = (searchTerm) => {
-    console.log("Searching for:", searchTerm);
-  };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -123,10 +116,9 @@ const NavBar = () => {
       )}
 
       <div className="w-full px-20">
-        <div className="h-16 flex flex-row justify-around items-center md:gap-10">
-          <div className="flex flex-row justify-center items-center gap-2">
+        <div className="h-16 flex flex-row justify-between items-center md:gap-10">
+          <div className="flex flex-row justify-center items-center gap-2 mx-44">
             <GiHamburgerMenu className="h-7 w-7" onClick={toggleSidebar} />
-            <SearchBar onSearch={handleSearch} />
           </div>
 
           <div className="flex flex-row justify-end items-center sm:gap-3 md:gap-7">
@@ -141,16 +133,11 @@ const NavBar = () => {
               )}
             </Link>
 
-            <div className="flex flex-row justify-center items-center gap-5">
+            <div className="flex flex-row justify-center items-center gap-1">
+              <h3 className="text-2xl font-semibold mr-2">Hi! </h3>
               <div className="w-10 h-10 rounded-full bg-orange-500 flex flex-row items-center justify-center cursor-pointer">
                 {Name.split(" ")[0].charAt(0) + Name.split(" ")[1].charAt(0)}
               </div>
-              <h3>
-                Hi!{" "}
-                <span className="font-xl font-semibold shadow-md rounded-full p-2 cursor-pointer">
-                  {Name}
-                </span>
-              </h3>
             </div>
           </div>
         </div>

@@ -80,7 +80,7 @@ const Order = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full mb-10">
       <div className="grid grid-cols-12 gap-5">
         <div className="col-span-2"></div>
         <div className="col-span-9">
